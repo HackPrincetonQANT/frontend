@@ -1,4 +1,5 @@
 import { useUser } from '@clerk/clerk-react';
+import { useState } from 'react';
 import { Mascot } from './Mascot';
 
 export const Home = () => {
@@ -11,6 +12,29 @@ export const Home = () => {
   const savedAmount = 17;
   const progress = (savedAmount / goalCost) * 100;
   const bankBalance = 1234.56;
+
+  // Weekly savings target
+  const [weeklySavingsTarget, setWeeklySavingsTarget] = useState(20);
+  const [isEditingTarget, setIsEditingTarget] = useState(false);
+  const [tempTarget, setTempTarget] = useState(weeklySavingsTarget.toString());
+
+  const handleEditTarget = () => {
+    setIsEditingTarget(true);
+    setTempTarget(weeklySavingsTarget.toString());
+  };
+
+  const handleSaveTarget = () => {
+    const newTarget = parseFloat(tempTarget);
+    if (!isNaN(newTarget) && newTarget > 0) {
+      setWeeklySavingsTarget(newTarget);
+    }
+    setIsEditingTarget(false);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditingTarget(false);
+    setTempTarget(weeklySavingsTarget.toString());
+  };
 
   return (
     <div className="min-h-screen bg-[#fdfbf7] p-6">
@@ -40,6 +64,57 @@ export const Home = () => {
                 ></div>
               </div>
               <p className="text-sm font-lexend text-[#8b6240] mt-2">{Math.round(progress)}% complete</p>
+
+              {/* Weekly Savings Target */}
+              <div className="mt-6 bg-[#fdfbf7] rounded-2xl p-4 border-4 border-[#6b4423]">
+                <div className="flex justify-between items-center">
+                  <div className="flex-1">
+                    <p className="text-sm font-lexend text-[#8b6240] mb-1">Weekly Savings Target</p>
+                    {isEditingTarget ? (
+                      <div className="flex gap-2 items-center">
+                        <span className="text-xl font-rique font-bold text-[#6b4423]">$</span>
+                        <input
+                          type="number"
+                          value={tempTarget}
+                          onChange={(e) => setTempTarget(e.target.value)}
+                          className="w-24 px-3 py-1 text-xl font-rique font-bold text-[#6b4423] bg-[#f3ecd8] border-2 border-[#6b4423] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6b4423]"
+                          autoFocus
+                        />
+                        <span className="text-lg font-lexend text-[#8b6240]">/week</span>
+                      </div>
+                    ) : (
+                      <p className="text-2xl font-rique font-bold text-[#6b4423]">
+                        ${weeklySavingsTarget}/week
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex gap-2">
+                    {isEditingTarget ? (
+                      <>
+                        <button
+                          onClick={handleSaveTarget}
+                          className="px-4 py-2 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-sm rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleCancelEdit}
+                          className="px-4 py-2 bg-[#f3ecd8] text-[#6b4423] font-lexend font-bold text-sm rounded-lg border-2 border-[#6b4423] hover:bg-[#f8f3e9] transition-colors"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={handleEditTarget}
+                        className="px-4 py-2 bg-[#6b4423] text-[#fdfbf7] font-lexend font-bold text-sm rounded-lg border-2 border-[#5a3a1f] hover:bg-[#5a3a1f] transition-colors"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

@@ -1,10 +1,12 @@
 import { SignedIn, SignedOut, SignInButton } from '@clerk/clerk-react';
+import { useState } from 'react';
 import { Onboarding } from './components/onboarding';
-import { Navbar, Home } from './components/common';
+import { Navbar, Home, Transactions, Insights } from './components/common';
 import { useOnboarding } from './hooks';
 
 export default function App() {
   const { shouldShowOnboarding, isLoading } = useOnboarding();
+  const [activeView, setActiveView] = useState<'home' | 'transactions' | 'insights'>('home');
 
   if (isLoading) {
     return (
@@ -20,7 +22,7 @@ export default function App() {
         <div className="min-h-screen flex items-center justify-center bg-[#fdfbf7]">
           <div className="text-center space-y-8 bg-[#f8f3e9] p-12 rounded-3xl border-4 border-[#6b4423] shadow-xl">
             <h1 className="text-7xl font-rique font-bold text-[#6b4423]">
-              Prince
+              Piggy Bank
             </h1>
             <p className="text-xl font-lexend text-[#8b6240]">Your smart savings companion</p>
             <SignInButton>
@@ -37,8 +39,10 @@ export default function App() {
           <Onboarding />
         ) : (
           <>
-            <Navbar />
-            <Home />
+            <Navbar activeView={activeView} setActiveView={setActiveView} />
+            {activeView === 'home' && <Home />}
+            {activeView === 'transactions' && <Transactions />}
+            {activeView === 'insights' && <Insights />}
           </>
         )}
       </SignedIn>

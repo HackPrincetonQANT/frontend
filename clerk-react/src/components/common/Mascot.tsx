@@ -58,11 +58,11 @@ export const Mascot = ({ happiness = 100 }: MascotProps) => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Mascot Character */}
+      {/* Mascot Character - Pink Piggy */}
       <div className="relative w-28 h-28">
         {/* Body */}
         <div 
-          className="absolute inset-0 bg-[#6b4423] rounded-full border-4 border-[#5a3a1f] transition-transform duration-200"
+          className="absolute inset-0 bg-[#FFB6C1] rounded-full border-4 border-[#FF69B4] transition-transform duration-200"
           style={{
             transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
           }}
@@ -71,7 +71,7 @@ export const Mascot = ({ happiness = 100 }: MascotProps) => {
           <div className="absolute inset-0 flex items-center justify-center">
             {/* Eyes */}
             <div className="absolute top-8 left-7">
-              <div className="w-5 h-5 bg-[#fdfbf7] rounded-full border-3 border-[#3a2414]">
+              <div className="w-5 h-5 bg-white rounded-full border-3 border-[#3a2414]">
                 <div 
                   className="w-3 h-3 bg-[#3a2414] rounded-full absolute transition-all duration-200"
                   style={{
@@ -82,7 +82,7 @@ export const Mascot = ({ happiness = 100 }: MascotProps) => {
               </div>
             </div>
             <div className="absolute top-8 right-7">
-              <div className="w-5 h-5 bg-[#fdfbf7] rounded-full border-3 border-[#3a2414]">
+              <div className="w-5 h-5 bg-white rounded-full border-3 border-[#3a2414]">
                 <div 
                   className="w-3 h-3 bg-[#3a2414] rounded-full absolute transition-all duration-200"
                   style={{
@@ -93,45 +93,68 @@ export const Mascot = ({ happiness = 100 }: MascotProps) => {
               </div>
             </div>
 
-            {/* Mouth */}
-            <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
+            {/* Snout/Nose */}
+            <div className="absolute top-14 left-1/2 transform -translate-x-1/2">
+              <div className="w-10 h-7 bg-[#FF85A6] rounded-full border-3 border-[#FF69B4]">
+                {/* Nostrils */}
+                <div className="absolute top-2 left-2 w-2 h-3 bg-[#FF69B4] rounded-full"></div>
+                <div className="absolute top-2 right-2 w-2 h-3 bg-[#FF69B4] rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Mouth - changes based on emotion */}
+            <div className="absolute top-20 left-1/2 transform -translate-x-1/2">
               {emotion === 'very-happy' && (
-                <div className="w-10 h-5 border-[#3a2414] border-b-4 border-l-4 border-r-4 rounded-b-full transition-all"></div>
+                <div className="w-8 h-3 border-[#FF69B4] border-b-4 border-l-4 border-r-4 rounded-b-full transition-all"></div>
               )}
               {emotion === 'happy' && (
-                <div className="w-9 h-4 border-[#3a2414] border-b-4 border-l-4 border-r-4 rounded-b-full transition-all"></div>
+                <div className="w-7 h-2 border-[#FF69B4] border-b-4 border-l-4 border-r-4 rounded-b-full transition-all"></div>
               )}
               {emotion === 'neutral' && (
-                <div className="w-7 h-1.5 bg-[#3a2414] rounded-full"></div>
+                <div className="w-6 h-1 bg-[#FF69B4] rounded-full"></div>
               )}
               {emotion === 'sad' && (
-                <div className="w-9 h-4 border-[#3a2414] border-t-4 border-l-4 border-r-4 rounded-t-full"></div>
+                <div className="w-7 h-2 border-[#FF69B4] border-t-4 border-l-4 border-r-4 rounded-t-full"></div>
               )}
               {emotion === 'very-sad' && (
-                <div className="w-10 h-5 border-[#3a2414] border-t-4 border-l-4 border-r-4 rounded-t-full"></div>
+                <div className="w-8 h-3 border-[#FF69B4] border-t-4 border-l-4 border-r-4 rounded-t-full"></div>
               )}
             </div>
 
             {/* Cheeks for happy states */}
             {(emotion === 'very-happy' || emotion === 'happy') && (
               <>
-                <div className="absolute top-12 left-3 w-4 h-3 bg-[#a07856] rounded-full opacity-50"></div>
-                <div className="absolute top-12 right-3 w-4 h-3 bg-[#a07856] rounded-full opacity-50"></div>
+                <div className="absolute top-11 left-2 w-4 h-3 bg-[#FF85A6] rounded-full opacity-60"></div>
+                <div className="absolute top-11 right-2 w-4 h-3 bg-[#FF85A6] rounded-full opacity-60"></div>
               </>
             )}
           </div>
 
-          {/* Arms - thicker and more visible */}
+          {/* Ears - triangular pig ears */}
           <div 
-            className="absolute -left-8 top-12 w-10 h-3 bg-[#6b4423] border-3 border-[#5a3a1f] rounded-full transform origin-right transition-transform duration-300"
+            className="absolute -top-2 left-1 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[16px] border-b-[#FFB6C1] transform -rotate-45 transition-transform duration-300"
             style={{
-              rotate: isHovering ? '20deg' : '45deg'
+              filter: 'drop-shadow(0 0 2px #FF69B4)'
             }}
           ></div>
           <div 
-            className="absolute -right-8 top-12 w-10 h-3 bg-[#6b4423] border-3 border-[#5a3a1f] rounded-full transform origin-left transition-transform duration-300"
+            className="absolute -top-2 right-1 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[16px] border-b-[#FFB6C1] transform rotate-45 transition-transform duration-300"
             style={{
-              rotate: isHovering ? '-20deg' : '-45deg'
+              filter: 'drop-shadow(0 0 2px #FF69B4)'
+            }}
+          ></div>
+
+          {/* Legs - little pink legs */}
+          <div 
+            className="absolute -bottom-2 left-6 w-3 h-5 bg-[#FFB6C1] border-3 border-[#FF69B4] rounded-b-lg transition-transform duration-300"
+            style={{
+              rotate: isHovering ? '5deg' : '0deg'
+            }}
+          ></div>
+          <div 
+            className="absolute -bottom-2 right-6 w-3 h-5 bg-[#FFB6C1] border-3 border-[#FF69B4] rounded-b-lg transition-transform duration-300"
+            style={{
+              rotate: isHovering ? '-5deg' : '0deg'
             }}
           ></div>
         </div>
